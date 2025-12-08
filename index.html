@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Əli Qurbanov — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      font-family:'Poppins', sans-serif;
+      background:linear-gradient(160deg,#f0f4ff,#dfe8ff,#c7d6ff);
+      color:#222;
+    }
+
+    header{
+      text-align:center;
+      padding:70px 20px;
+      background:linear-gradient(120deg,#6d8dff,#8bb0ff,#a7c4ff);
+      color:white;
+      position:relative;
+      overflow:hidden;
+    }
+
+    header h1{font-size:48px;margin:0;font-weight:700;}
+    header p{font-size:18px;margin-top:10px;opacity:0.9}
+
+    .bubble{
+      position:absolute;
+      border-radius:50%;
+      background:rgba(255,255,255,0.25);
+      animation: float 9s infinite ease-in-out;
+    }
+
+    @keyframes float{
+      0%{transform:translateY(0) scale(1);}
+      50%{transform:translateY(-40px) scale(1.1);}
+      100%{transform:translateY(0) scale(1);}
+    }
+
+    section{
+      max-width:1100px;
+      margin:50px auto;
+      background:white;
+      padding:35px;
+      border-radius:18px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.1);
+      transition: transform .3s ease;
+    }
+
+    section:hover{transform:translateY(-6px);}
+
+    h2{margin-top:0;font-size:30px;color:#4d6cff;}
+
+    .skills-list span{
+      display:inline-block;
+      background:#eef1ff;
+      padding:8px 14px;
+      border-radius:12px;
+      margin:6px;
+      font-size:14px;
+      color:#4d57aa;
+      font-weight:600;
+    }
+
+    .projects .item{
+      padding:15px;
+      border-radius:14px;
+      background:#f7f8ff;
+      margin-bottom:14px;
+      transition:.25s;
+      border-left:5px solid #4d6cff;
+    }
+    .projects .item:hover{background:#e8ecff;}
+
+    .socials a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      background:#eef1ff;
+      border-radius:12px;
+      color:#333;
+      text-decoration:none;
+      margin-bottom:10px;
+      transition:.25s;
+    }
+    .socials a:hover{
+      background:#dfe5ff;
+      transform:translateX(6px);
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      color:#444;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="bubble" style="width:120px;height:120px;top:20px;left:40px"></div>
+  <div class="bubble" style="width:180px;height:180px;bottom:20px;right:60px"></div>
+  <h1>Əli Qurbanov</h1>
+  <p>İT tələbəsi • Proqramlaşdırma & Robotexnika həvəskarı</p>
+</header>
+
+<section>
+  <h2>Haqqımda</h2>
+  <p>Mən Əli Qurbanov, Odlar Yurdu Universitetində İnformasiya Texnologiyaları ixtisası üzrə 1-ci kurs tələbəsiyəm. Məqsədim proqramlaşdırma, robotexnika və kibertəhlükəsizlik üzrə özümü inkişaf etdirərək peşəkar bir karyera qurmaqdır.</p>
+</section>
+
+<section>
+  <h2>Bacarıqlarım</h2>
+  <div class="skills-list">
+    <span>Python</span>
+    <span>HTML / CSS</span>
+    <span>Robotexnika</span>
+    <span>Piano 🎵 </span>
+  </div>
+</section>
+
+<section>
+  <h2>Layihələr</h2>
+  <div class="projects">
+    <div class="item">
+      <strong>Balanslı Robot (Arduino)</strong>
+      <p>PID nəzarət, giroskop və motor idarəetməsi ilə balanslı robot.</p>
+    </div>
+    <div class="item">
+      <strong>Şəxsi Web Portfolio</strong>
+      <p>Sıfırdan HTML/CSS istifadə edilərək hazırlanmış modern portfolio.</p>
+    </div>
+    <div class="item">
+      <strong>Espor</strong>
+      <p>Valorant Espor turnirlərində iştirak</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Əlaqə və Sosial Şəbəkələr</h2>
+  <div class="socials" style="display:flex; gap:18px;">
+  <a href="https://instagram.com/ok4nner" target="_blank" style="padding:0; background:none; margin:0;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" width="40" />
+  </a>
+  <a href="https://www.tiktok.com/@0k4nner" target="_blank" style="padding:0; background:none; margin:0;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" width="40" />
+  </a>
+  <a href="https://github.com/aliqurbanov23iyul-bit" target="_blank" style="padding:0; background:none; margin:0;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" width="40" />
+  </a>
+</div>
+</section>
+
+<footer>
+  © 2025 • Əli Qurbanov Tərəfindən Hazırlanmış Şəxsi Portfolio
+</footer>   
+
+</body>
+</html>
