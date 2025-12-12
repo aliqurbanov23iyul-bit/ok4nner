@@ -36,6 +36,25 @@ body {
   transform: scale(0.9);
 }
 
+/* Nudge the whole flower group to the left on larger screens so popovers fit */
+@media (min-width: 769px) {
+  .flowers {
+    margin-left: -8vmin;
+  }
+}
+
+/* Blooming state: when a flower is clicked, animate it opening from center */
+.flower.blooming {
+  z-index: 1100;
+  transform-origin: center bottom;
+  transform: scale(1.03);
+  transition: transform 220ms ease;
+}
+.flower.blooming .flower__leafs {
+  animation: blooming-flower 500ms ease forwards;
+  transform-origin: center center;
+}
+
 .flower {
   position: absolute;
   bottom: 10vmin;
