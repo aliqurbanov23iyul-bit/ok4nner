@@ -59,6 +59,27 @@ onload = () => {
         modal.style.setProperty('--modal-left', `${centerX}px`);
         modal.style.setProperty('--modal-top', `${topPos}px`);
         modal.classList.add('popover');
+        // Trigger a quick bloom/opening animation on the clicked flower
+        try {
+          const leafs = flowerEl.querySelector('.flower__leafs');
+          flowerEl.classList.add('blooming');
+          if (leafs) {
+            const onEnd = () => {
+              flowerEl.classList.remove('blooming');
+              leafs.removeEventListener('animationend', onEnd);
+            };
+            leafs.addEventListener('animationend', onEnd);
+            // safety fallback to remove class
+            setTimeout(() => {
+              flowerEl.classList.remove('blooming');
+              try { leafs.removeEventListener('animationend', onEnd); } catch (e) {}
+            }, 800);
+          } else {
+            setTimeout(() => flowerEl.classList.remove('blooming'), 600);
+          }
+        } catch (e) {
+          // ignore errors if structure differs
+        }
       }
 
       modal.classList.add('show');
@@ -72,6 +93,8 @@ onload = () => {
       modal.style.removeProperty('--modal-left');
       modal.style.removeProperty('--modal-top');
     });
+    // remove blooming state from any flower
+    document.querySelectorAll('.flower.blooming').forEach(f => f.classList.remove('blooming'));
     document.body.style.overflow = 'auto';
   }
 
