@@ -43,42 +43,49 @@ onload = () => {
       if (clickedEl) {
         const flowerEl = clickedEl.closest('.flower') || clickedEl;
         const rect = flowerEl.getBoundingClientRect();
-        let centerX = rect.left + rect.width / 2;
-        let centerY = rect.top + rect.height / 2;
 
-        // Simple viewport clamps so the popover doesn't go off-screen
-        const minX = 90;
-        const maxX = window.innerWidth - 90;
-        centerX = Math.min(Math.max(centerX, minX), maxX);
+        // On small screens prefer the default centered modal to avoid off-screen popovers
+        if (window.innerWidth <= 768) {
+          // subtle bloom but keep modal centered
+          try { flowerEl.classList.add('blooming'); setTimeout(() => flowerEl.classList.remove('blooming'), 700); } catch(e){}
+        } else {
+          let centerX = rect.left + rect.width / 2;
+          let centerY = rect.top + rect.height / 2;
 
-        const preferredTop = centerY - rect.height * 0.35;
-        const minTop = 70;
-        const maxTop = window.innerHeight - 120;
-        const topPos = Math.min(Math.max(preferredTop, minTop), maxTop);
+          // Safer clamps so min never exceeds max
+          const minX = 90;
+          let maxX = Math.max(window.innerWidth - 90, minX);
+          centerX = Math.min(Math.max(centerX, minX), maxX);
 
-        modal.style.setProperty('--modal-left', `${centerX}px`);
-        modal.style.setProperty('--modal-top', `${topPos}px`);
-        modal.classList.add('popover');
-        // Trigger a quick bloom/opening animation on the clicked flower
-        try {
-          const leafs = flowerEl.querySelector('.flower__leafs');
-          flowerEl.classList.add('blooming');
-          if (leafs) {
-            const onEnd = () => {
-              flowerEl.classList.remove('blooming');
-              leafs.removeEventListener('animationend', onEnd);
-            };
-            leafs.addEventListener('animationend', onEnd);
-            // safety fallback to remove class
-            setTimeout(() => {
-              flowerEl.classList.remove('blooming');
-              try { leafs.removeEventListener('animationend', onEnd); } catch (e) {}
-            }, 800);
-          } else {
-            setTimeout(() => flowerEl.classList.remove('blooming'), 600);
+          const preferredTop = centerY - rect.height * 0.35;
+          const minTop = 70;
+          let maxTop = Math.max(window.innerHeight - 120, minTop);
+          const topPos = Math.min(Math.max(preferredTop, minTop), maxTop);
+
+          modal.style.setProperty('--modal-left', `${centerX}px`);
+          modal.style.setProperty('--modal-top', `${topPos}px`);
+          modal.classList.add('popover');
+          // Trigger a quick bloom/opening animation on the clicked flower
+          try {
+            const leafs = flowerEl.querySelector('.flower__leafs');
+            flowerEl.classList.add('blooming');
+            if (leafs) {
+              const onEnd = () => {
+                flowerEl.classList.remove('blooming');
+                leafs.removeEventListener('animationend', onEnd);
+              };
+              leafs.addEventListener('animationend', onEnd);
+              // safety fallback to remove class
+              setTimeout(() => {
+                flowerEl.classList.remove('blooming');
+                try { leafs.removeEventListener('animationend', onEnd); } catch (e) {}
+              }, 800);
+            } else {
+              setTimeout(() => flowerEl.classList.remove('blooming'), 600);
+            }
+          } catch (e) {
+            // ignore errors if structure differs
           }
-        } catch (e) {
-          // ignore errors if structure differs
         }
       }
 
