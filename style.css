@@ -46,7 +46,7 @@ body {
 /* Blooming state: when a flower is clicked, animate it opening from center */
 .flower.blooming {
   z-index: 1100;
-  transform-origin: center bottom;
+  transform-origin: center center;
   transform: scale(1.03);
   transition: transform 220ms ease;
 }
@@ -1187,15 +1187,15 @@ body {
   position: absolute;
   left: var(--modal-left, 50%);
   top: var(--modal-top, 50%);
-  transform: translate(-50%, -10%);
+  transform: translate(-50%, -50%);
   max-width: 420px;
   width: auto;
   /* disable regular slideUp animation for popover to preserve positioning transform */
   animation: none;
 }
 
-/* Mobile fallback: always center the popover modal on very small screens */
-@media (max-width: 420px) {
+/* Mobile fallback: always center the popover modal on small screens */
+@media (max-width: 768px) {
   .flower-modal.popover .modal-content {
     left: 50% !important;
     top: 50% !important;
@@ -1385,4 +1385,5 @@ body {
 }
 
 /*# sourceMappingURL=style.css.map */
+
 
