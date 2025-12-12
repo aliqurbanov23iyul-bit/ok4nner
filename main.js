@@ -70,3 +70,34 @@ onload = () => {
     enableMobileFull();
     window.addEventListener('resize', enableMobileFull);
   })();
+
+  // Mobile: trigger flower pop animation (center -> upward) to make flowers prominent
+  (function mobileFlowersPop() {
+    const flowers = document.querySelector('.flowers');
+    if (!flowers) return;
+
+    function triggerPop() {
+      if (window.innerWidth <= 768) {
+        // force repaint then add class to play animation
+        flowers.classList.remove('mobile-pop');
+        void flowers.offsetWidth;
+        flowers.classList.add('mobile-pop');
+        // remove class after animation to allow retrigger on resize
+        const onEnd = () => {
+          flowers.classList.remove('mobile-pop');
+          flowers.removeEventListener('animationend', onEnd);
+        };
+        flowers.addEventListener('animationend', onEnd);
+      } else {
+        flowers.classList.remove('mobile-pop');
+      }
+    }
+
+    // run on load and on resize
+    triggerPop();
+    window.addEventListener('resize', () => {
+      // debounce a bit
+      clearTimeout(window._flowerPopTimeout);
+      window._flowerPopTimeout = setTimeout(triggerPop, 150);
+    });
+  })();
