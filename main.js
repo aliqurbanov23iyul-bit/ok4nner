@@ -48,3 +48,25 @@ onload = () => {
     });
     document.body.style.overflow = 'auto';
   }
+
+  // Mobile: make the love message full-screen and dismissible by tap
+  (function mobileLoveMessage() {
+    const loveMessage = document.querySelector('.love-message');
+    if (!loveMessage) return;
+    function enableMobileFull() {
+      if (window.innerWidth <= 768) {
+        loveMessage.classList.add('mobile-full');
+        // allow dismiss by tap
+        loveMessage.addEventListener('click', () => {
+          loveMessage.style.display = 'none';
+        }, { once: true });
+        // auto-hide after 4 seconds
+        setTimeout(() => { loveMessage.style.display = 'none'; }, 4000);
+      } else {
+        loveMessage.classList.remove('mobile-full');
+        loveMessage.style.display = '';
+      }
+    }
+    enableMobileFull();
+    window.addEventListener('resize', enableMobileFull);
+  })();
