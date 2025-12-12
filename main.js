@@ -4,10 +4,10 @@ onload = () => {
       clearTimeout(c);
     }, 1000);
 
-    // Add click handlers to all flower centers
+    // Add click handlers to all flower centers (pass the clicked element for popover positioning)
     const flowerCenters = document.querySelectorAll('.flower__white-circle');
     flowerCenters.forEach((center, index) => {
-      center.addEventListener('click', () => openFlowerModal(index + 1));
+      center.addEventListener('click', (e) => openFlowerModal(index + 1, e.currentTarget));
     });
 
     // Close modal when clicking outside the content
@@ -28,15 +28,39 @@ onload = () => {
     });
   };
 
-  function openFlowerModal(flowerNumber) {
-    // Close all modals first
+  function openFlowerModal(flowerNumber, clickedEl) {
+    // Close all modals first and clear any popover state
     document.querySelectorAll('.flower-modal').forEach(modal => {
-      modal.classList.remove('show');
+      modal.classList.remove('show', 'popover');
+      modal.style.removeProperty('--modal-left');
+      modal.style.removeProperty('--modal-top');
     });
-    
+
     // Open the selected modal
     const modal = document.getElementById('flowerModal' + flowerNumber);
     if (modal) {
+      // If we have the clicked element, position the modal near that flower (popover)
+      if (clickedEl) {
+        const flowerEl = clickedEl.closest('.flower') || clickedEl;
+        const rect = flowerEl.getBoundingClientRect();
+        let centerX = rect.left + rect.width / 2;
+        let centerY = rect.top + rect.height / 2;
+
+        // Simple viewport clamps so the popover doesn't go off-screen
+        const minX = 90;
+        const maxX = window.innerWidth - 90;
+        centerX = Math.min(Math.max(centerX, minX), maxX);
+
+        const preferredTop = centerY - rect.height * 0.35;
+        const minTop = 70;
+        const maxTop = window.innerHeight - 120;
+        const topPos = Math.min(Math.max(preferredTop, minTop), maxTop);
+
+        modal.style.setProperty('--modal-left', `${centerX}px`);
+        modal.style.setProperty('--modal-top', `${topPos}px`);
+        modal.classList.add('popover');
+      }
+
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
     }
@@ -44,7 +68,9 @@ onload = () => {
 
   function closeFlowerModal() {
     document.querySelectorAll('.flower-modal').forEach(modal => {
-      modal.classList.remove('show');
+      modal.classList.remove('show', 'popover');
+      modal.style.removeProperty('--modal-left');
+      modal.style.removeProperty('--modal-top');
     });
     document.body.style.overflow = 'auto';
   }
