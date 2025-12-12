@@ -1163,6 +1163,28 @@ body {
   }
 }
 
+/* Popover modal positioning: when a flower is clicked, position modal near it */
+.flower-modal.popover .modal-content {
+  position: absolute;
+  left: var(--modal-left, 50%);
+  top: var(--modal-top, 50%);
+  transform: translate(-50%, -10%);
+  max-width: 420px;
+  width: auto;
+  /* disable regular slideUp animation for popover to preserve positioning transform */
+  animation: none;
+}
+
+/* Mobile fallback: always center the popover modal on very small screens */
+@media (max-width: 420px) {
+  .flower-modal.popover .modal-content {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90%;
+  }
+}
+
 .modal-header {
   margin-bottom: 25px;
   animation: heartBeat 0.6s ease 0.3s both;
@@ -1344,4 +1366,3 @@ body {
 }
 
 /*# sourceMappingURL=style.css.map */
-
