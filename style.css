@@ -39,7 +39,7 @@ body {
 /* Nudge the whole flower group to the left on larger screens so popovers fit */
 @media (min-width: 769px) {
   .flowers {
-    margin-left: -16vmin;
+    margin-left: -32vmin;
   }
 }
 
